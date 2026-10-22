@@ -68,7 +68,6 @@ export default function CodeEditor({
       minHeight="420px"
       maxHeight="70vh"
       placeholder="Paste or type your code here…"
-      autoFocus
       basicSetup={{ highlightActiveLine: true, foldGutter: true, tabSize: 2 }}
       onKeyDown={e => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && onSubmit) {
