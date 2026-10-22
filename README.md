@@ -25,7 +25,7 @@ npm run dev
 
 ## Dokploy / Docker
 
-Deploy this repository with the Dockerfile at the project root. The container listens on `0.0.0.0:3091`; set the application's container port to `3091` in Dokploy. Set the `NEXT_PUBLIC_*` values from `.env.example` as Docker build arguments, since Next.js embeds them during the build. Set server-only values such as `SUPABASE_SECRET_KEY`, `CLERK_SECRET_KEY`, and `PASTE_UNLOCK_SECRET` as runtime environment variables in Dokploy.
+Deploy this repository with the Dockerfile at the project root. The container listens on `0.0.0.0:3091`; set the application's container port to `3091` in Dokploy. Set the Clerk publishable key, site URL, and optional analytics ID as Docker build arguments, since Next.js embeds `NEXT_PUBLIC_*` values during the build. Set Supabase runtime values (`SUPABASE_URL` and `SUPABASE_SECRET_KEY`, or `SUPABASE_PUBLISHABLE_KEY`) and other server-only values such as `CLERK_SECRET_KEY` and `PASTE_UNLOCK_SECRET` as runtime environment variables in Dokploy. Supabase credentials are no longer needed during the Docker build.
 
 | Script              | What it does            |
 | ------------------- | ----------------------- |

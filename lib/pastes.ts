@@ -2,7 +2,7 @@ import 'server-only';
 
 import { timeAgo } from './format';
 import { normalizeLanguage } from './languages';
-import supabase from './supabase';
+import { getSupabase } from './supabase';
 import type {
   PasteListItem,
   PasteRow,
@@ -55,7 +55,7 @@ export function toListItem(row: SummaryRow): PasteListItem {
 export async function getRecentPublicPastes(
   limit = 8
 ): Promise<PasteListItem[]> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from(TABLE)
     .select(SUMMARY_COLUMNS)
     .eq('public', true)
@@ -73,7 +73,7 @@ export async function getPastesByUser(
   userId: string,
   { publicOnly }: { publicOnly: boolean }
 ): Promise<PasteListItem[]> {
-  let query = supabase
+  let query = getSupabase()
     .from(TABLE)
     .select(SUMMARY_COLUMNS)
     .eq('userId', userId)
@@ -90,7 +90,7 @@ export async function getPastesByUser(
 }
 
 export async function getPaste(pasteId: string): Promise<PasteRow | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from(TABLE)
     .select('*')
     .eq('pasteId', pasteId)
@@ -104,7 +104,7 @@ export async function getPaste(pasteId: string): Promise<PasteRow | null> {
 }
 
 export async function isPasteIdTaken(pasteId: string): Promise<boolean> {
-  const { count, error } = await supabase
+  const { count, error } = await getSupabase()
     .from(TABLE)
     .select('id', { count: 'exact', head: true })
     .eq('pasteId', pasteId);
@@ -116,7 +116,7 @@ export async function isPasteIdTaken(pasteId: string): Promise<boolean> {
 export type NewPaste = Omit<PasteRow, 'id' | 'createdAt'>;
 
 export async function insertPaste(paste: NewPaste) {
-  const { error } = await supabase.from(TABLE).insert(paste);
+  const { error } = await getSupabase().from(TABLE).insert(paste);
   if (error) throw error;
 }
 
@@ -124,7 +124,7 @@ export async function updatePasteRow(
   pasteId: string,
   fields: Partial<Omit<PasteRow, 'id' | 'pasteId' | 'createdAt' | 'userId'>>
 ) {
-  const { error } = await supabase
+  const { error } = await getSupabase()
     .from(TABLE)
     .update(fields)
     .eq('pasteId', pasteId);
@@ -132,6 +132,9 @@ export async function updatePasteRow(
 }
 
 export async function deletePasteRow(pasteId: string) {
-  const { error } = await supabase.from(TABLE).delete().eq('pasteId', pasteId);
+  const { error } = await getSupabase()
+    .from(TABLE)
+    .delete()
+    .eq('pasteId', pasteId);
   if (error) throw error;
 }
