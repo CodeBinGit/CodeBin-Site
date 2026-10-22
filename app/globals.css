@@ -1,0 +1,175 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, 'SFMono-Regular', monospace;
+
+  --color-bg: #09090f;
+  --color-surface: #11111a;
+  --color-surface-2: #181824;
+  --color-surface-3: #212131;
+  --color-line: #262637;
+  --color-line-strong: #34344a;
+  --color-fg: #ededf4;
+  --color-muted: #9b9bb3;
+  --color-subtle: #6c6c85;
+  --color-accent: #b794f6;
+  --color-accent-strong: #9a6bf5;
+  --color-accent-soft: rgb(183 148 246 / 0.12);
+  --color-danger: #f87171;
+  --color-success: #4ade80;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background: rgb(154 107 245 / 0.45);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  * {
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex h-9 items-center justify-center gap-2 rounded-lg px-3.5 text-sm font-medium whitespace-nowrap transition-colors select-none disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-sm {
+    @apply h-8 px-2.5 text-[13px];
+  }
+  .btn-lg {
+    @apply h-11 px-5 text-[15px];
+  }
+  .btn-primary {
+    @apply bg-accent-strong hover:bg-accent text-white shadow-[0_0_0_1px_rgb(255_255_255/0.08)_inset,0_8px_24px_-8px_rgb(154_107_245/0.6)] hover:text-[#16102a];
+  }
+  .btn-secondary {
+    @apply border-line bg-surface-2 text-fg hover:border-line-strong hover:bg-surface-3 border;
+  }
+  .btn-ghost {
+    @apply text-muted hover:bg-surface-2 hover:text-fg;
+  }
+  .btn-danger {
+    @apply bg-red-500/90 text-white hover:bg-red-500;
+  }
+  .btn-icon {
+    @apply size-9 px-0;
+  }
+
+  .input {
+    @apply border-line bg-surface placeholder:text-subtle hover:border-line-strong focus:border-accent/70 focus:ring-accent/20 h-10 w-full rounded-lg border px-3 text-base transition sm:text-sm outline-none focus:ring-4 disabled:opacity-50;
+  }
+  .input[aria-invalid='true'] {
+    @apply border-danger/70 focus:ring-red-500/20;
+  }
+  textarea.input {
+    @apply h-auto py-2.5;
+  }
+  select.input {
+    @apply cursor-pointer appearance-none bg-[length:16px] bg-[right_10px_center] bg-no-repeat pr-9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239b9bb3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+
+  .label {
+    @apply text-muted mb-1.5 block text-xs font-medium tracking-wide uppercase;
+  }
+
+  .card {
+    @apply border-line bg-surface rounded-2xl border;
+  }
+
+  .chip {
+    @apply border-line bg-surface-2 text-muted inline-flex h-6 items-center gap-1.5 rounded-full border px-2.5 text-xs font-medium;
+  }
+  .chip-accent {
+    @apply border-accent/25 bg-accent-soft text-accent;
+  }
+
+  .kbd {
+    @apply border-line bg-surface-2 text-muted rounded border px-1.5 py-0.5 font-mono text-[11px];
+  }
+}
+
+/* Highlighted code (Shiki) */
+.code-view pre.shiki {
+  @apply m-0 overflow-x-auto py-4 font-mono text-[13px] leading-6;
+  background: transparent !important;
+  counter-reset: line;
+  tab-size: 4;
+}
+.code-view pre.shiki code {
+  @apply block min-w-max;
+}
+.code-view pre.shiki .line {
+  @apply inline-block w-full pr-6;
+}
+.code-view pre.shiki .line::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply text-subtle/70 sticky left-0 mr-4 inline-block w-10 pr-1 text-right select-none sm:mr-5 sm:w-14;
+  background: var(--color-surface);
+}
+.code-view pre.shiki .line:hover {
+  background: rgb(255 255 255 / 0.025);
+}
+
+/* Editor (CodeMirror) */
+.code-editor .cm-editor {
+  /* 16px on phones so iOS doesn't zoom in when the editor is tapped. */
+  @apply font-mono text-base sm:text-[13px];
+  background: transparent;
+}
+.code-editor .cm-editor.cm-focused {
+  outline: none;
+}
+.code-editor .cm-scroller {
+  @apply font-mono leading-6;
+}
+.code-editor .cm-gutters {
+  @apply border-line/60 border-r;
+}
+/* Let clicks anywhere in the empty editor area place the cursor. */
+.code-editor .cm-content,
+.code-editor .cm-gutter {
+  min-height: 420px;
+}
+
+/* Legal pages */
+.legal {
+  @apply prose prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-4xl prose-h2:mt-12 prose-h2:text-2xl prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-hr:border-line prose-li:my-1 max-w-none;
+  --tw-prose-body: var(--color-muted);
+  --tw-prose-headings: var(--color-fg);
+  --tw-prose-bold: var(--color-fg);
+}
+.legal .legal-tag {
+  @apply border-line bg-surface-2 text-fg rounded-md border px-1.5 py-0.5 text-[0.85em] font-medium;
+}
+
+/* Show code exactly as typed */
+.code-view pre.shiki,
+.code-editor .cm-editor {
+  font-variant-ligatures: none;
+}
+
+.legal h1 .legal-tag {
+  @apply text-muted mt-3 block w-fit text-sm font-normal;
+}
