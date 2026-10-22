@@ -60,6 +60,10 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
       <body className="flex flex-col">
         <ClerkProvider
+          publishableKey={
+            process.env.CLERK_PUBLISHABLE_KEY ||
+            process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+          }
           signInUrl="/sign-in"
           signUpUrl="/sign-up"
           appearance={{
