@@ -1,20 +1,40 @@
 import Link from 'next/link';
 
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, FileQuestion, Plus } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex max-w-md flex-col items-center px-4 py-28 text-center">
-      <p className="text-accent font-mono text-sm">404</p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight">
-        Page not found
-      </h1>
-      <p className="text-muted mt-2">
-        Whatever you're looking for has moved or no longer exists.
-      </p>
-      <Link href="/" className="btn btn-primary mt-8">
-        <ArrowLeft className="size-4" /> Back home
-      </Link>
-    </div>
+    <main className="relative isolate flex min-h-[65vh] items-center justify-center overflow-hidden px-4 py-20">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(50%_60%_at_50%_0%,rgb(154_107_245/0.14),transparent_70%)]"
+      />
+      <section className="w-full max-w-lg text-center">
+        <div
+          aria-hidden
+          className="border-line bg-surface mx-auto grid size-16 place-items-center rounded-2xl border shadow-[0_12px_40px_-16px_rgb(154_107_245/0.5)]"
+        >
+          <FileQuestion className="text-accent size-7" />
+        </div>
+        <p className="text-accent mt-6 font-mono text-sm tracking-[0.2em]">
+          ERROR 404
+        </p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+          This page is missing.
+        </h1>
+        <p className="text-muted mx-auto mt-3 max-w-sm leading-relaxed">
+          The link may be outdated, or the paste you’re looking for may no
+          longer exist.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Link href="/" className="btn btn-primary">
+            <Plus className="size-4" /> Create a paste
+          </Link>
+          <Link href="/" className="btn btn-secondary">
+            <ArrowLeft className="size-4" /> Back to home
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }

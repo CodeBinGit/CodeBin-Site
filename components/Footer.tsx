@@ -99,7 +99,7 @@ export default function Footer() {
       </div>
       <div className="border-line/70 border-t">
         <p className="text-subtle mx-auto max-w-7xl px-4 py-5 text-xs sm:px-6">
-          © {new Date().getFullYear()} Code Bin. All rights reserved.
+          © {new Date().getFullYear()} Code Bin. All rights reserved. | Orginal Owner of Code Bin is <a href="https://github.com/CodeMeAPixel" className="text-fg hover:underline">CodeMeAPixel</a> | Forked and Maintained by <a href="https://github.com/Connor200024" className="text-fg hover:underline">Connor200024</a>
         </p>
       </div>
     </footer>
