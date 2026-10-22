@@ -1,1 +1,1 @@
-npm run --silent lint
+eslint .

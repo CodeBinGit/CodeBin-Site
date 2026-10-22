@@ -23,6 +23,10 @@ npm install
 npm run dev
 ```
 
+## Dokploy / Docker
+
+Deploy this repository with the Dockerfile at the project root. The container listens on `0.0.0.0:3091`; set the application's container port to `3091` in Dokploy. Set the `NEXT_PUBLIC_*` values from `.env.example` as Docker build arguments, since Next.js embeds them during the build. Set server-only values such as `SUPABASE_SECRET_KEY`, `CLERK_SECRET_KEY`, and `PASTE_UNLOCK_SECRET` as runtime environment variables in Dokploy.
+
 | Script              | What it does            |
 | ------------------- | ----------------------- |
 | `npm run dev`       | Start the dev server    |
